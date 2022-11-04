@@ -8,7 +8,7 @@ public class InMemoryPollProvider : IPollProvider
         { "4ER-8IK", new Poll(id : "4ER-8IK",
             description : "Nice poll!",
             title : "Best poll ever",
-            choices : new List<string> { "Choice 1", "Choice 2" })}
+            choices : new List<string> { "Choice 1", "Choice 2", "Choice 3", "Choice 4" })}
     };
 
     public string CreatePoll(Poll poll)

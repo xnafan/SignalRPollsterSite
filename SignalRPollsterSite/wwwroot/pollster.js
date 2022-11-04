@@ -7,14 +7,18 @@ document.querySelectorAll(".voteButton").forEach((elem) => elem.disabled = true)
 connection.on("VoteUpdated", function (results) {
     update(results);
 });
+connection.on("ReceivePollInfo", function (poll) {
+    updatePollInfo(poll);
+});
 
 connection.start().then(function () {
-    document.querySelectorAll(".voteButton").forEach((elem)=> elem.disabled = false);
+    getUpdatedPollInfo();
 }).catch(function (err) {
     return console.error(err.toString());
 });
 document.querySelectorAll(".voteButton").forEach(
     (elem, index) => {
+        elem.disabled = false;
         elem.addEventListener("click", function (event) {
             connection.invoke("Vote", pollId, index).catch(function (err) {
                 return console.error(err.toString());
@@ -28,4 +32,14 @@ function update(results) {
         let span = document.getElementById("option" + i + "score");
         span.innerText = results[i];
     }
+}
+
+function updatePollInfo(poll) {
+    update(poll.results);
+}
+
+function getUpdatedPollInfo() {
+    connection.invoke("GetPollInfo", pollId).catch(function (err) {
+        return console.error(err.toString());
+    });
 }
