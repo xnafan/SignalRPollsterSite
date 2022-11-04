@@ -1,10 +1,9 @@
-﻿using SignalRPollsterSite.Model;
-
-namespace SignalRPollsterSite.DataAccessLayer
+﻿namespace SignalRPollsterSite.DataAccessLayer
 {
     public interface IPollProvider
     {
-        Poll? GetPollInfo(string pollId);
-        PollResult? Vote(string pollId, int vote);
+        Poll GetPollInfo(string pollId);
+        int[] Vote(string pollId, int vote);
+        string CreatePoll(Poll poll);
     }
 }

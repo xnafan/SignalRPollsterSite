@@ -1,23 +1,29 @@
-﻿using SignalRPollsterSite.Model;
+﻿using System.Linq;
+namespace SignalRPollsterSite.DataAccessLayer;
 
-namespace SignalRPollsterSite.DataAccessLayer
+public class InMemoryPollProvider : IPollProvider
 {
-    public class InMemoryPollProvider : IPollProvider
+    private Dictionary<string, Poll> _polls = new()
     {
-        private Dictionary<string, Poll> _polls = new();
-        public Poll? GetPollInfo(string pollId)
-        {
-            if(_polls.ContainsKey(pollId)) { return _polls[pollId]; }
-            return null;
-        }
+        { "4ER-8IK", new Poll(id : "4ER-8IK",
+            description : "Nice poll!",
+            title : "Best poll ever",
+            choices : new List<string> { "Choice 1", "Choice 2" })}
+    };
 
-        public PollResult? Vote(string pollId, int choiceNumber)
-        {
-            Poll? poll = GetPollInfo(pollId);
-            if(poll != null) {
-                
-                return poll.Result;
-            }
-        }
+    public string CreatePoll(Poll poll)
+    {
+        string pollId = ShortUIDTool.CreateShortId();
+        _polls[pollId] = poll;
+        return pollId;
+    }
+
+    public Poll GetPollInfo(string pollId) => _polls[pollId];
+    public IEnumerable<int> Vote(string pollId, int choiceNumber) => GetPollInfo(pollId).Results;
+
+    int[] IPollProvider.Vote(string pollId, int vote)
+    {
+        _polls[pollId].Vote(vote);
+        return _polls[pollId].Results.ToArray();
     }
 }
