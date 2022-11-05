@@ -47,16 +47,14 @@ function createPollButtons(poll) {
     pollDescriptionDiv.innerText = poll.description;
     let choiceNumber = 0;
     let pollDiv = document.getElementById("pollDiv");
-    //pollDiv.innerText = "yo!";
-                //<div class="result"><span id="option0score">0</span><br /><button class="voteButton">vote</button></div>
     let template = document.getElementsByTagName("template")[0];
 
     poll.choices.forEach(function (choice) {
     
     let divResult = template.content.querySelector("div.result");
-    let choiceText = divResult.querySelector("span.choiceText");
+    let choiceText = divResult.querySelector("div.choiceText");
         choiceText.innerText = choice ;
-        let choiceVoteCount = divResult.querySelector("span.choiceVoteCount");
+        let choiceVoteCount = divResult.querySelector("div.choiceVoteCount");
         choiceVoteCount.id = "choice"+choiceNumber+"VoteCount";
 
     let updatedTemplate = document.importNode(divResult, true);
