@@ -6,5 +6,6 @@ public class PollHub : Hub
     public PollHub(IPollProvider pollProvider) => _pollProvider = pollProvider;
     public async Task GetPollInfo(string pollId) => await Clients.Caller.SendAsync("receivePollInfo", _pollProvider.GetPollInfo(pollId));
     public async Task CreatePoll(Poll poll) => await Clients.Caller.SendAsync("pollCreated", _pollProvider.CreatePoll(poll));
-    public async Task Vote(string pollId, int vote) => await Clients.All.SendAsync("voteUpdated", _pollProvider.Vote(pollId, vote));
+    public async Task Vote(string pollId, int vote) => await Clients.Group(pollId).SendAsync("voteUpdated", _pollProvider.Vote(pollId, vote));
+    public Task JoinPoll(string pollId) => Groups.AddToGroupAsync(Context.ConnectionId, pollId);
 }

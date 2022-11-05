@@ -1,0 +1,54 @@
+﻿@page "{pollId?}"
+@model SignalRPollsterSite.Pages.IndexModel
+@{
+    string? pollId = (string)@RouteData.Values["pollId"];
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Pollster site</title>
+    <meta charset="utf-8" />
+    <style>
+        * {
+            font-family: Verdana, Arial, sans-serif;
+            font-size: 18pt;
+        }
+
+        .result {
+            text-align: center;
+            /*border:1px solid red;*/
+        }
+
+           /* .result span {
+                font-size: 30pt;
+            }*/
+    </style>
+    <script>var pollId = "@pollId";</script>
+</head>
+<body>
+    <div style="width:600px;margin:0px auto;text-align:center;" id="pollDiv">
+
+        @if (string.IsNullOrEmpty(pollId))
+        {
+            <h1>No Poll id found!</h1>
+        }
+        else
+        {
+            <h1 id="title"></h1>
+            <div id="description"></div>       
+            <p></p>
+            <script src="js/signalr.js"></script>
+            <script src="js/pollster.js"></script>
+        }
+    </div>
+    <template>
+            <div class="result">
+                <span class="choiceText"></span>
+                <span class="choiceVoteCount">0</span>
+                <span class="voteButtonContainer">
+                       <button class="voteButton">vote</button>
+                </span>
+            </div>
+        </template>
+</body>
+</html>

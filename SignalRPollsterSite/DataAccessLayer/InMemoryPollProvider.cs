@@ -5,10 +5,10 @@ public class InMemoryPollProvider : IPollProvider
 {
     private Dictionary<string, Poll> _polls = new()
     {
-        { "4ER-8IK", new Poll(id : "4ER-8IK",
-            description : "Nice poll!",
-            title : "Best poll ever",
-            choices : new List<string> { "Choice 1", "Choice 2", "Choice 3", "Choice 4" })}
+        { "1234", new Poll(id : "1234",
+            description : "What's your favorite fruit?",
+            title : "Fruit poll",
+            choices : new List<string> { "Apples", "Bananas", "Cherries","Water melons"})}
     };
 
     public string CreatePoll(Poll poll)
