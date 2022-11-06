@@ -49,15 +49,15 @@ function createPollButtons(poll) {
     let pollDescriptionDiv = document.querySelector("div#description");
     pollDescriptionDiv.innerText = poll.description;
     let choiceNumber = 0;
-    let pollDiv = document.getElementById("pollDiv");
+    let pollDiv = document.getElementById("results");
     let template = document.getElementsByTagName("template")[0];
 
     poll.choices.forEach(function (choice) {
     
-    let divResult = template.content.querySelector("div.result");
-    let choiceText = divResult.querySelector("div.choiceText");
+        let divResult = template.content.querySelector(".result");
+    let choiceText = divResult.querySelector(".choiceText");
         choiceText.innerText = choice ;
-        let choiceVoteCount = divResult.querySelector("div.choiceVoteCount");
+        let choiceVoteCount = divResult.querySelector(".choiceVoteCount");
         choiceVoteCount.id = "choice"+choiceNumber+"VoteCount";
 
     let updatedTemplate = document.importNode(divResult, true);
