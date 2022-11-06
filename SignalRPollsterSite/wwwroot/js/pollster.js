@@ -31,7 +31,10 @@ function getUpdatedPollInfo() {
 function updateResults(results) {
     for (let i = 0; i < results.length; i++) {
         let span = document.getElementById("choice" + i + "VoteCount");
-        span.innerText = results[i];
+        if (span.innerText != results[i]) {
+            span.innerText = results[i];
+            pulseElement(span);
+        }
     }
 }
 
@@ -72,5 +75,11 @@ function createPollButtons(poll) {
             });
         }
     );
+}
 
+function pulseElement(element) {
+
+    element.style.animation = '';
+    void element.offsetWidth;       //important HACK to make the restart of animation work
+    element.style.animation = "pulse .2s 1";
 }
